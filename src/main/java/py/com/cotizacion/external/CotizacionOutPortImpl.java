@@ -20,7 +20,7 @@ public class CotizacionOutPortImpl implements CotizacionOutPort {
     private static final String BEARER_TOKEN_PATH = "https://apibanking-gw.bancontinental.com.py/autenticarServicio/v1/realms/interno";
     private static final String COTIZACION_CONTINETAL_PATH = "https://apibanking-gw.bancontinental.com.py/divisas/v1/api/monedas/cotizaciones";
 
-    // ::: impl
+    // ::: apr
 
     @Override
     public BearerExternal findBearerToken() {
@@ -66,7 +66,8 @@ public class CotizacionOutPortImpl implements CotizacionOutPort {
 
             ObjectMapper objectMapper = new ObjectMapper();
             List<CotizacionExternal> cotizacionExternal = objectMapper.readValue(response.body(),
-                    new TypeReference<List<CotizacionExternal>>(){});
+                    new TypeReference<>() {
+                    });
             return cotizacionExternal;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
