@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import py.com.cotizacion.domain.port.in.CotizacionInPort;
 import py.com.cotizacion.domain.port.out.CotizacionOutPort;
@@ -50,6 +51,7 @@ public class CotizacionService implements CotizacionInPort {
 
     // ::: impl
 
+    @Cacheable(value = "cotizaciones", key = "'cotizacionResponse'", unless = "#result == null")
     @Override
     public List<CotizacionResponse> findCotizacionResponse() {
         List<CotizacionExternal> cotizacionExternals = coreBankingAction.findCotizacion();
