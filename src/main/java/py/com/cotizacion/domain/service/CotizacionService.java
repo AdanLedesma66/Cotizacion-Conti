@@ -51,7 +51,7 @@ public class CotizacionService implements CotizacionInPort {
 
     // ::: impl
 
-    @Cacheable(value = "cotizaciones", key = "'cotizacionResponse'", unless = "#result == null")
+    @Cacheable(value = "cotizaciones", key = "'cotizacionResponse'")
     @Override
     public List<CotizacionResponse> findCotizacionResponse() {
         List<CotizacionExternal> cotizacionExternals = coreBankingAction.findCotizacion();
