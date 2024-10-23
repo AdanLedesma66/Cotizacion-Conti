@@ -2,6 +2,9 @@ package py.com.cotizacion.external;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import py.com.cotizacion.domain.port.out.CotizacionOutPort;
 import py.com.cotizacion.external.model.BearerExternal;
 import py.com.cotizacion.external.model.CotizacionExternal;
@@ -12,7 +15,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
-
+@Slf4j
+@AllArgsConstructor
 public class CotizacionOutPortImpl implements CotizacionOutPort {
 
     // ::: path

@@ -1,7 +1,9 @@
 package py.com.cotizacion.domain.port.out.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
@@ -24,38 +26,6 @@ public class CotizacionResponse {
     @JsonProperty(value = "venta")
     private BigDecimal sellRate;
 
-    // ::: fields
-
-
-    public String getExchangeRate() {
-        return exchangeRate;
-    }
-
-    public void setExchangeRate(String exchangeRate) {
-        this.exchangeRate = exchangeRate;
-    }
-
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
-    public void setCurrencyCode(String currencyCode) {
-        this.currencyCode = currencyCode;
-    }
-
-    public BigDecimal getBuyRate() {
-        return buyRate;
-    }
-
-    public void setBuyRate(BigDecimal buyRate) {
-        this.buyRate = buyRate;
-    }
-
-    public BigDecimal getSellRate() {
-        return sellRate;
-    }
-
-    public void setSellRate(BigDecimal sellRate) {
-        this.sellRate = sellRate;
-    }
+    @JsonProperty(value = "urlImagen")
+    private String urlImage;
 }
