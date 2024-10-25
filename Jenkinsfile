@@ -16,9 +16,9 @@ node {
         stage('Deploy docker') {
             echo "Docker Image Tag Name: ${dockerImageTag}"
 
-            sh "docker stop cotip-test || true"
-            sh "docker rm cotip-test || true"
-            sh "docker run --name cotip-test -d -p 8081:8081 cotip-test:${env.BUILD_NUMBER}"
+            bat "docker stop cotip-test"
+            bat "docker rm cotip-test"
+            bat "docker run --name cotip-test -d -p 8081:8081 cotip-test:${env.BUILD_NUMBER}"
         }
     } catch(e) {
         throw e
