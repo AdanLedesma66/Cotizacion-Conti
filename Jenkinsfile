@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'OpenJDK21'
+    }
+
     stages {
         stage('Checkout SCM') {
             steps {
