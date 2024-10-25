@@ -1,26 +1,46 @@
-node {
-    def WORKSPACE = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\cotip-test"
-    def dockerImageTag = "cotip-test${env.BUILD_NUMBER}"
+pipeline {
+    agent any
 
-    try {
-        stage('Clone Repo') {
-            git url: 'https://github.com/AdanLedesma66/Cotizacion-Conti.git',
-                credentialsId: '67478233-aeb5-4566-8ebd-a87c0494d7dd',
-                branch: 'main'
+    stages {
+        stage('Checkout SCM') {
+            steps {
+                git url: 'https://github.com/AdanLedesma66/Cotizacion-Conti.git',
+                    branch: 'main',
+                    credentialsId: '67478233-aeb5-4566-8ebd-a87c0494d7dd'
+            }
         }
 
-        stage('Build docker') {
-            dockerImage = docker.build("cotip-test:${env.BUILD_NUMBER}")
+        stage('Build') {
+            steps {
+                echo "Building the project"
+                sh 'mvn clean install'
+            }
         }
 
-        stage('Deploy docker') {
-            echo "Docker Image Tag Name: ${dockerImageTag}"
-
-            bat "docker stop cotip-test || exit 0"
-            bat "docker rm cotip-test || exit 0"
-            bat "docker run --name cotip-test -d -p 8081:8081 cotip-test:${env.BUILD_NUMBER}"
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("cotip-test:${env.BUILD_NUMBER}")
+                }
+            }
         }
-    } catch(e) {
-        throw e
+
+        stage('Deploy Docker') {
+            steps {
+                script {
+                    echo "Deploying Docker Image"
+
+                    bat "docker stop cotip-test || exit 0"
+                    bat "docker rm cotip-test || exit 0"
+                    bat "docker run --name cotip-test -d -p 8081:8081 cotip-test:${env.BUILD_NUMBER}"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline Finished'
+        }
     }
 }
