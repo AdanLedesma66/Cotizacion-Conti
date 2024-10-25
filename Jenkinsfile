@@ -1,5 +1,6 @@
 node {
-    def WORKSPACE = "/var/lib/jenkins/workspace/cotip-test"
+//     def WORKSPACE = "/var/lib/jenkins/workspace/cotip-test" linux
+    def WORKSPACE = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\cotip-test"
     def dockerImageTag = "cotip-test${env.BUILD_NUMBER}"
 
     try{
